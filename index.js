@@ -12,7 +12,7 @@ var dialFreq=[
     [852,1336],
     [852,1477]
 ]
-var dial="056826560049";
+var dial="0568927164";
 var dialArr;
 var dialPos=0;
 var dialLength=10;
@@ -38,11 +38,10 @@ function setup() {
 //   }
 osc.amp(1);
 osc.amp(1);
-  osc.start();
-  osc2.start();
+
   console.log(dialArr);
   console.log(Number(dialFreq[0][0]));
-  playing=true;
+  playing=false;
 //   osc2.start();
 }
 
@@ -68,6 +67,8 @@ if(playing){
         var a=Math.min(Number(dialArr[dialPos]),dialFreq.length);
         console.log(a);
         
+        osc.amp(1);
+        osc2.amp(1);
         osc.freq(dialFreq[a][0]);
         osc2.freq(dialFreq[a][1]);
         if(dialPos+1>=dialArr.length){
@@ -91,8 +92,15 @@ function playOscillator() {
   playing = false;
 }
 
-function mouseReleased() {
+function mousePressed() {
   // ramp amplitude to 0 over 0.5 seconds
   //osc.amp(0, 0.5);
-  playing = false;
+  console.log("pow");
+  if(getAudioContext().state!=='running'){
+    getAudioContext().resume();
+  }
+  playing = true;
+  dialPos=0;
+    osc.start();
+    osc2.start();
 }
