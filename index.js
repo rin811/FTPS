@@ -1,4 +1,5 @@
 let osc, playing, freq, amp;
+var maxFreq;
 
 var dialFreq=[
     [941,1336],
