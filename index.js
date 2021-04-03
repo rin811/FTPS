@@ -1,4 +1,4 @@
-let osc, osc2, playing, freq, amp;
+let osc, playing, freq, amp;
 
 var dialFreq=[
     [941,1336],
@@ -23,7 +23,6 @@ function setup() {
   let cnv = createCanvas(100, 100);
   cnv.mousePressed(playOscillator);
   osc = new p5.Oscillator('sine');
-  osc2 = new p5.Oscillator('sine');
 
   dialArr=new Array(dial.length);
   for(var i=0;i<dial.length;i++){
@@ -56,25 +55,20 @@ if(playing){
     Frame++;
     if(Frame==dialLength-dialLength*0.2){
         osc.stop();
-        osc2.stop();
     }
 
     if(Frame>dialLength){
         Frame=0;
         osc.start();
-        osc2.start();
         Math.min(dialPos++,dialArr.length);
         var a=Math.min(Number(dialArr[dialPos]),dialFreq.length);
         console.log(a);
         
         osc.amp(1);
-        osc2.amp(1);
         osc.freq(dialFreq[a][0]);
-        osc2.freq(dialFreq[a][1]);
         if(dialPos+1>=dialArr.length){
             playing=false;
             osc.stop();
-            osc2.stop();
         }
     }
 }
@@ -88,7 +82,6 @@ if(playing){
 
 function playOscillator() {
     osc.amp(0);
-    osc2.amp(0);
   playing = false;
 }
 
@@ -102,5 +95,4 @@ function mousePressed() {
   playing = true;
   dialPos=0;
     osc.start();
-    osc2.start();
 }
